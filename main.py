@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+import criptografia
 
 # Tela principal
 tela_principal = Tk()
@@ -21,14 +22,27 @@ def msg_aviso(_texto):
 def msg_erro(_texto):
     messagebox.showerror("Erro!", format(_texto, str))
 
+def validacao(_texto):
+    ret = True
+
+    if len(_texto) > 128:
+        ret = False
+        msg_erro("A quantidade de caracteres não podem ultrapassar 128 caracteres!!")
+    
+    return ret
+
 def botao_entrada_cripto():
-    texto_saida_criptografia.insert(1.0, texto_entrada_criptografia.get(1.0, "end-1c"))
-    texto_entrada_criptografia.delete(1.0,"end")
+    texto = texto_entrada_criptografia.get(1.0, "end-1c")
+    if validacao(texto):
+        texto_saida_criptografia.insert(1.0, texto)
+        texto_entrada_criptografia.delete(1.0,"end")
     
 
 def botao_entrada_descripto():
-    texto_saida_descriptografia.insert(1.0, texto_entrada_descriptografia.get(1.0, "end-1c"))
-    texto_entrada_descriptografia.delete(1.0,"end")
+    texto = texto_entrada_descriptografia.get(1.0, "end-1c")
+    if validacao(texto):
+        texto_saida_descriptografia.insert(1.0, texto_entrada_descriptografia.get(1.0, "end-1c"))
+        texto_entrada_descriptografia.delete(1.0,"end")
 
 # Título da página
 label_titulo = Label(text = "APS - Criptografia e Descriptografia", font = "-family arial -weight bold -size 22")
