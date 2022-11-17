@@ -37,6 +37,7 @@ def validacao(_texto):
 def botao_entrada_cripto():
     texto = texto_entrada_criptografia.get(1.0, "end-1c").strip()
     if validacao(texto):
+        texto_saida_criptografia.delete(1.0,"end")
         texto_saida_criptografia.insert(1.0, criptografia.criptografar(texto))
         texto_entrada_criptografia.delete(1.0,"end")
     
@@ -44,6 +45,7 @@ def botao_entrada_cripto():
 def botao_entrada_descripto():
     texto = texto_entrada_descriptografia.get(1.0, "end-1c").strip()
     if validacao(texto):
+        texto_saida_descriptografia.delete(1.0,"end")
         texto_saida_descriptografia.insert(1.0, criptografia.descriptografar(texto))
         texto_entrada_descriptografia.delete(1.0,"end")
 
