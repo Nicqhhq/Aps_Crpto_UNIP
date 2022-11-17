@@ -12,36 +12,39 @@ tela_principal.maxsize(800, 600)
 # Funções
 # Mensagem de informação
 def msg_informacao(_texto):
-    messagebox.showinfo("Informação", format(_texto, str))
+    messagebox.showinfo("Informação", format(_texto))
 
 # Mensagem de aviso
 def msg_aviso(_texto):
-    messagebox.showwarning("Aviso!", format(_texto, str))
+    messagebox.showwarning("Aviso!", format(_texto))
 
 # Mensagem de erro
 def msg_erro(_texto):
-    messagebox.showerror("Erro!", format(_texto, str))
+    messagebox.showerror("Erro!", format(_texto))
 
 def validacao(_texto):
     ret = True
 
-    if len(_texto) > 128:
+    if len(_texto.strip()) == 0:
+        ret = False
+        msg_erro("Informe uma mensagem de entrada valido!!")
+    elif len(_texto) > 128:
         ret = False
         msg_erro("A quantidade de caracteres não podem ultrapassar 128 caracteres!!")
     
     return ret
 
 def botao_entrada_cripto():
-    texto = texto_entrada_criptografia.get(1.0, "end-1c")
+    texto = texto_entrada_criptografia.get(1.0, "end-1c").strip()
     if validacao(texto):
-        texto_saida_criptografia.insert(1.0, texto)
+        texto_saida_criptografia.insert(1.0, criptografia.criptografar(texto))
         texto_entrada_criptografia.delete(1.0,"end")
     
 
 def botao_entrada_descripto():
-    texto = texto_entrada_descriptografia.get(1.0, "end-1c")
+    texto = texto_entrada_descriptografia.get(1.0, "end-1c").strip()
     if validacao(texto):
-        texto_saida_descriptografia.insert(1.0, texto_entrada_descriptografia.get(1.0, "end-1c"))
+        texto_saida_descriptografia.insert(1.0, criptografia.descriptografar(texto))
         texto_entrada_descriptografia.delete(1.0,"end")
 
 # Título da página
@@ -83,30 +86,34 @@ botao_descriptografia = Button(tela_principal, height = 2,
                             font = "-weight bold -size 10",
                             command = botao_entrada_descripto)
 
-# Execução da Tela 
-label_titulo.pack(ipadx=10, ipady=10)
-label_titulo.place(relx=0.5, rely=0.055, anchor='n')
+# Execução da Tela
+def run(): 
+    label_titulo.pack(ipadx=10, ipady=10)
+    label_titulo.place(relx=0.5, rely=0.055, anchor='n')
 
-label_entrada_criptografia.pack()
-label_entrada_criptografia.place(relx=0.25, rely=0.15, anchor='n')
-texto_entrada_criptografia.pack()
-texto_entrada_criptografia.place(relx=0.25, rely=0.2, anchor='n')
-botao_criptografia.pack(padx= 10, pady= 10)
-botao_criptografia.place(relx=0.25, rely=0.5, anchor='n')
-label_saida_criptografia.pack()
-label_saida_criptografia.place(relx=0.25, rely=0.6, anchor='n')
-texto_saida_criptografia.pack()
-texto_saida_criptografia.place(relx=0.25, rely=0.65, anchor='n')
+    label_entrada_criptografia.pack()
+    label_entrada_criptografia.place(relx=0.25, rely=0.15, anchor='n')
+    texto_entrada_criptografia.pack()
+    texto_entrada_criptografia.place(relx=0.25, rely=0.2, anchor='n')
+    botao_criptografia.pack(padx= 10, pady= 10)
+    botao_criptografia.place(relx=0.25, rely=0.5, anchor='n')
+    label_saida_criptografia.pack()
+    label_saida_criptografia.place(relx=0.25, rely=0.6, anchor='n')
+    texto_saida_criptografia.pack()
+    texto_saida_criptografia.place(relx=0.25, rely=0.65, anchor='n')
 
-label_entrada_descriptografia.pack()
-label_entrada_descriptografia.place(relx=0.75, rely=0.15, anchor='n')
-texto_entrada_descriptografia.pack()
-texto_entrada_descriptografia.place(relx=0.75, rely=0.2, anchor='n')
-botao_descriptografia.pack(padx= 10, pady= 10)
-botao_descriptografia.place(relx=0.75, rely=0.5, anchor='n')
-label_saida_descriptografia.pack()
-label_saida_descriptografia.place(relx=0.75, rely=0.6, anchor='n')
-texto_saida_descriptografia.pack()
-texto_saida_descriptografia.place(relx=0.75, rely=0.65, anchor='n')
+    label_entrada_descriptografia.pack()
+    label_entrada_descriptografia.place(relx=0.75, rely=0.15, anchor='n')
+    texto_entrada_descriptografia.pack()
+    texto_entrada_descriptografia.place(relx=0.75, rely=0.2, anchor='n')
+    botao_descriptografia.pack(padx= 10, pady= 10)
+    botao_descriptografia.place(relx=0.75, rely=0.5, anchor='n')
+    label_saida_descriptografia.pack()
+    label_saida_descriptografia.place(relx=0.75, rely=0.6, anchor='n')
+    texto_saida_descriptografia.pack()
+    texto_saida_descriptografia.place(relx=0.75, rely=0.65, anchor='n')
 
-tela_principal.mainloop()
+    tela_principal.mainloop()
+
+if __name__ == "__main__":
+    run()
